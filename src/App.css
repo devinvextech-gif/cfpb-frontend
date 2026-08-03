@@ -1,0 +1,313 @@
+/* ── Reset & base ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Layout ──────────────────────────────────────────────────────────────── */
+.cfpb-app {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f5f0;
+  font-family: 'Source Sans Pro', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+.cfpb-header {
+  background: #1a4480;
+  color: #fff;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.25);
+}
+.cfpb-header__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.cfpb-logo {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.cfpb-logo__cfpb {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: #fff;
+}
+.cfpb-logo__label {
+  font-size: .95rem;
+  color: #b8d0f0;
+}
+
+/* ── Main ────────────────────────────────────────────────────────────────── */
+.cfpb-main {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+/* ── Cards ───────────────────────────────────────────────────────────────── */
+.cfpb-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px 36px;
+  box-shadow: 0 1px 4px rgba(0,0,0,.1), 0 4px 16px rgba(0,0,0,.06);
+}
+.cfpb-card__title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1a4480;
+  margin: 0 0 20px;
+}
+
+/* ── Status badge ────────────────────────────────────────────────────────── */
+.cfpb-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.cfpb-badge--idle        { background:#e8f0fe; color:#1a4480; }
+.cfpb-badge--launching   { background:#fff4ce; color:#7a5900; }
+.cfpb-badge--waiting_verify { background:#e7f5e8; color:#1b5e20; }
+.cfpb-badge--verifying   { background:#fff4ce; color:#7a5900; }
+.cfpb-badge--scraping    { background:#e8f0fe; color:#1a4480; }
+.cfpb-badge--done        { background:#e7f5e8; color:#1b5e20; }
+.cfpb-badge--error       { background:#fde8e8; color:#b00020; }
+
+/* ── Timer ───────────────────────────────────────────────────────────────── */
+.cfpb-timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding: 10px 16px;
+  border: 1px solid #d2d2d2;
+  border-radius: 6px;
+  background: #f9f9f9;
+}
+.cfpb-timer__label { font-size: .85rem; color: #555; }
+.cfpb-timer__value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: #1a4480;
+}
+.cfpb-timer__value--urgent { color: #b00020; }
+
+/* ── Alert ───────────────────────────────────────────────────────────────── */
+.cfpb-alert {
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: .9rem;
+  line-height: 1.5;
+}
+.cfpb-alert--error {
+  background: #fde8e8;
+  border: 1px solid #f9b4b4;
+  color: #8b0000;
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────── */
+.cfpb-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s, transform .1s;
+  text-decoration: none;
+}
+.cfpb-btn:active { transform: scale(.97); }
+.cfpb-btn:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+.cfpb-btn--ready {
+  background: #1a4480;
+  color: #fff;
+  font-size: 1.1rem;
+  padding: 14px 36px;
+  margin-top: 8px;
+}
+.cfpb-btn--ready:hover:not(:disabled) { background: #14356a; }
+
+.cfpb-btn__icon {
+  font-size: .8em;
+}
+
+.cfpb-btn--submit {
+  background: #2e7d32;
+  color: #fff;
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+.cfpb-btn--submit:hover:not(:disabled) { background: #246228; }
+
+.cfpb-btn--reset {
+  background: transparent;
+  color: #b00020;
+  border: 1px solid #f9b4b4;
+  padding: 8px 18px;
+  font-size: .85rem;
+  margin-top: 16px;
+}
+.cfpb-btn--reset:hover { background: #fde8e8; }
+
+/* ── Spinner ─────────────────────────────────────────────────────────────── */
+.cfpb-spinner-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 0;
+}
+.cfpb-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #d0ddf0;
+  border-top-color: #1a4480;
+  border-radius: 50%;
+  animation: cfpb-spin .8s linear infinite;
+}
+@keyframes cfpb-spin { to { transform: rotate(360deg); } }
+.cfpb-spinner__text { color: #555; font-size: .9rem; }
+
+/* ── Verify form ─────────────────────────────────────────────────────────── */
+.cfpb-verify-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 380px;
+  margin-top: 8px;
+}
+.cfpb-verify-form__info {
+  font-size: .9rem;
+  color: #444;
+  line-height: 1.5;
+  margin: 0;
+}
+.cfpb-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cfpb-field__label {
+  font-size: .85rem;
+  font-weight: 600;
+  color: #333;
+}
+.cfpb-field__input {
+  padding: 10px 14px;
+  border: 1.5px solid #aaa;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  letter-spacing: .1em;
+  text-align: center;
+  transition: border-color .2s;
+  outline: none;
+}
+.cfpb-field__input:focus { border-color: #1a4480; box-shadow: 0 0 0 3px rgba(26,68,128,.15); }
+.cfpb-field__input:disabled { background: #f5f5f5; }
+.cfpb-field__error { font-size: .82rem; color: #b00020; }
+
+/* ── Dashboard card ──────────────────────────────────────────────────────── */
+.cfpb-dashboard-card { margin-top: 0; }
+.cfpb-dashboard__meta {
+  font-size: .82rem;
+  color: #666;
+  margin: -12px 0 20px;
+}
+.cfpb-dashboard__meta a { color: #1a4480; }
+
+.cfpb-section { margin-bottom: 28px; }
+.cfpb-section__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a4480;
+  margin: 0 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid #e8f0fe;
+}
+
+.cfpb-list {
+  margin: 0;
+  padding-left: 20px;
+  line-height: 1.8;
+}
+.cfpb-list--links { list-style: none; padding: 0; }
+.cfpb-list--links a { color: #1a4480; text-decoration: underline; font-size: .9rem; }
+
+.cfpb-paragraphs p {
+  margin: 0 0 8px;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.cfpb-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 16px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.cfpb-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+}
+.cfpb-table th {
+  background: #1a4480;
+  color: #fff;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+}
+.cfpb-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+.cfpb-table tr:last-child td { border-bottom: none; }
+.cfpb-table tr:nth-child(even) td { background: #f8f9fc; }
+
+.cfpb-raw {
+  background: #f4f4f0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 16px;
+  font-size: .8rem;
+  line-height: 1.6;
+  overflow: auto;
+  max-height: 400px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ── Status card layout ──────────────────────────────────────────────────── */
+.cfpb-status-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .cfpb-card { padding: 24px 18px; }
+  .cfpb-main { margin: 20px auto; padding: 0 12px; }
+  .cfpb-btn--ready { width: 100%; justify-content: center; }
+}
