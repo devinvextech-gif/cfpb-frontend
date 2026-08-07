@@ -8,7 +8,7 @@ const STATUS_LABELS = {
   launching: 'Launching browser & logging in…',
   waiting_verify: 'Waiting for verification code',
   verifying: 'Verifying code…',
-  scraping: 'Navigating to complaint & scraping details…',
+  scraping: 'Navigating to active complaint & scraping details…',
   done: 'Done',
   error: 'Error',
 };
@@ -23,6 +23,7 @@ export default function App() {
   const [dashboardData, setDashboardData] = useState(null);
   const [timeLeft, setTimeLeft] = useState(null);
   const [showJson, setShowJson] = useState(false);
+  const [selectedResponse, setSelectedResponse] = useState(null);
   const pollRef = useRef(null);
 
   const poll = useCallback(async () => {
@@ -336,11 +337,32 @@ export default function App() {
                     </h3>
                     <div className="cfpb-response-grid">
                       {detail.responseOptions.map((opt, i) => (
-                        <label key={i} className="cfpb-response-option">
-                          <input type="radio" name="response" readOnly disabled />
+                        <label key={i} className="cfpb-response-option" style={{ cursor: 'pointer' }}>
+                          <input 
+                            type="radio" 
+                            name="response" 
+                            checked={selectedResponse === opt}
+                            onChange={() => setSelectedResponse(opt)}
+                          />
                           <span>{opt}</span>
                         </label>
                       ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* AI generated response section */}
+                {selectedResponse === 'Closed with explanation' && dashboardData?.webhookResponse?.complaint_response && (
+                  <div className="cfpb-section-card">
+                    <h3 className="cfpb-section-card__title">What is your response to this complaint?</h3>
+                    <div className="cfpb-field">
+                      <textarea 
+                        className="cfpb-field__input" 
+                        readOnly 
+                        rows={8}
+                        value={dashboardData.webhookResponse.complaint_response}
+                        style={{ width: '100%', resize: 'vertical', maxWidth: '100%', lineHeight: '1.6' }}
+                      />
                     </div>
                   </div>
                 )}
