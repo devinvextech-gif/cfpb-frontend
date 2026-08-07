@@ -40,7 +40,12 @@ export default function App() {
       } else if (data.status !== 'verifying') {
         setVerifyError('');
       }
-      if (data.dashboardData) setDashboardData(data.dashboardData);
+      if (data.dashboardData) {
+        setDashboardData(data.dashboardData);
+        if (data.dashboardData.webhookResponse?.complaint_response) {
+          setSelectedResponse('Closed with explanation');
+        }
+      }
       if (data.status === 'done' || data.status === 'error') stopPolling();
     } catch (e) {
       console.error('Poll error:', e);
