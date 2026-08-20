@@ -50,14 +50,16 @@ export default function App() {
       if (data.verifyError) {
         setVerifyError(data.verifyError);
         setVerifySubmitting(false);
-      } else if (data.status !== 'waiting_verify') {
-        setVerifyError('');
+      } else {
+        if (data.status === 'waiting_verify') setVerifySubmitting(false);
+        if (data.status !== 'waiting_verify') setVerifyError('');
       }
       if (data.emailVerifyError) {
         setEmailVerifyError(data.emailVerifyError);
         setEmailVerifySubmitting(false);
-      } else if (data.status !== 'waiting_email_verify') {
-        setEmailVerifyError('');
+      } else {
+        if (data.status === 'waiting_email_verify') setEmailVerifySubmitting(false);
+        if (data.status !== 'waiting_email_verify') setEmailVerifyError('');
       }
       if (data.emailCodePrefix) setEmailCodePrefix(data.emailCodePrefix);
       if (data.status === 'done' || data.status === 'error') stopPolling();
@@ -82,6 +84,8 @@ export default function App() {
     setError(null);
     setVerifyCode('');
     setVerifyError('');
+    setVerifySubmitting(false);
+    setEmailVerifySubmitting(false);
     try {
       const res = await fetch(`${API}/start`, { method: 'POST' });
       const data = await res.json();
@@ -140,7 +144,7 @@ export default function App() {
     }
   };
 
-  const handleReset = async () => {
+  const handleReset = useCallback(async () => {
     stopPolling();
     await fetch(`${API}/reset`, { method: 'POST' }).catch(() => {});
     setSessionStatus('idle');
@@ -148,11 +152,17 @@ export default function App() {
     setError(null);
     setVerifyCode('');
     setVerifyError('');
+    setVerifySubmitting(false);
     setEmailVerifyCode('');
     setEmailVerifyError('');
+    setEmailVerifySubmitting(false);
     setEmailCodePrefix(null);
     setTimeLeft(null);
-  };
+  }, [stopPolling]);
+
+  useEffect(() => {
+    if (sessionStatus === 'done') handleReset();
+  }, [handleReset, sessionStatus]);
 
   const isIdle = sessionStatus === 'idle';
   const isWaitingVerify = sessionStatus === 'waiting_verify';
