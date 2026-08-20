@@ -858,3 +858,50 @@ body {
 }
 
 /* pink — booleans/null */
+
+/* ── Email verification badge ──────────────────────────────────── */
+.cfpb-verify-form__email-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cfpb-blue-lt);
+  border: 1px solid var(--cfpb-blue);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin-bottom: 14px;
+}
+
+.cfpb-verify-form__email-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.cfpb-verify-form__email-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cfpb-navy);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+}
+
+/* Inline monospace prefix hint (e.g. "JFH-") */
+.cfpb-code-prefix {
+  display: inline-block;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--cfpb-navy);
+  background: var(--cfpb-navy-lt);
+  border: 1px solid var(--cfpb-gray-200);
+  border-radius: 4px;
+  padding: 1px 6px;
+  letter-spacing: .05em;
+}
+
+/* Small hint text beside field label */
+.cfpb-field__hint {
+  margin-left: 6px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--cfpb-gray-600);
+}
