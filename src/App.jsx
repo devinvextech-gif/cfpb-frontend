@@ -85,9 +85,9 @@ export default function App() {
         body: JSON.stringify({ code: verifyCode.trim() }),
       });
       const data = await res.json();
-      if (!res.ok) setVerifyError(data.error || 'Verification failed');
-    } catch (e) { setVerifyError('Cannot reach backend.'); }
-    finally { setVerifySubmitting(false); }
+      // Only the ack is returned here — the real result arrives via polling.
+      if (!res.ok) { setVerifyError(data.error || 'Verification failed'); setVerifySubmitting(false); }
+    } catch (e) { setVerifyError('Cannot reach backend.'); setVerifySubmitting(false); }
   };
 
   const handleReset = async () => {
