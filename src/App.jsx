@@ -75,8 +75,11 @@ export default function App() {
   }, [poll]);
 
   useEffect(() => {
-    poll();
-    return () => stopPolling();
+    const initialPoll = setTimeout(() => { poll(); }, 0);
+    return () => {
+      clearTimeout(initialPoll);
+      stopPolling();
+    };
   }, [poll, stopPolling]);
 
   const handleReady = async () => {
