@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import './App.css';
 
-const API = '/api';
+const API = 'https://cfpb-backend-hgla.onrender.com';
+// const API = '/api';
 
 const STATUS_LABELS = {
   idle: 'Idle',
@@ -61,7 +62,7 @@ export default function App() {
         if (data.status === 'waiting_email_verify') setEmailVerifySubmitting(false);
         if (data.status !== 'waiting_email_verify') setEmailVerifyError('');
       }
-      if (data.emailCodePrefix) setEmailCodePrefix(data.emailCodePrefix);
+      setEmailCodePrefix(data.emailCodePrefix || null);
       if (data.status === 'done' || data.status === 'error') stopPolling();
     } catch (pollError) {
       console.error('Poll error:', pollError);
@@ -121,7 +122,7 @@ export default function App() {
       const data = await res.json();
       // Only the ack is returned here — the real result arrives via polling.
       if (!res.ok) { setVerifyError(data.error || 'Verification failed'); setVerifySubmitting(false); }
-    } catch (e) { setVerifyError('Cannot reach backend.'); setVerifySubmitting(false); }
+    } catch { setVerifyError('Cannot reach backend.'); setVerifySubmitting(false); }
   };
 
   const handleEmailVerify = async (event) => {
@@ -149,7 +150,7 @@ export default function App() {
 
   const handleReset = useCallback(async () => {
     stopPolling();
-    await fetch(`${API}/reset`, { method: 'POST' }).catch(() => {});
+    await fetch(`${API}/reset`, { method: 'POST' }).catch(() => { });
     setSessionStatus('idle');
     setSessionActive(false);
     setError(null);
@@ -164,7 +165,9 @@ export default function App() {
   }, [stopPolling]);
 
   useEffect(() => {
-    if (sessionStatus === 'done') handleReset();
+    if (sessionStatus !== 'done') return undefined;
+    const resetTimer = setTimeout(() => { handleReset(); }, 0);
+    return () => clearTimeout(resetTimer);
   }, [handleReset, sessionStatus]);
 
   const isIdle = sessionStatus === 'idle';
